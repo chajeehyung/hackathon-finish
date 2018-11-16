@@ -8,10 +8,10 @@ def image_search(request):
     # return redirect('image_list', search_keyword)
     return image_list(request,search_keyword)
 
-def image_list(request, search_keword=''):
+def image_list(request, search_keyword=''):
     url_prefix = 'https://www.google.co.kr/search?q='
     url_surfix = '&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjqzdHerNbeAhXGW7wKHaNYCykQ_AUIDigB&biw=1853&bih=950'
-    url = url_prefix + search_keword + url_surfix
+    url = url_prefix + search_keyword + url_surfix
 
     response = requests.get(url)
     open('pby.html', 'wt').write(response.text)
