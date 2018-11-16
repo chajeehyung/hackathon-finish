@@ -1,0 +1,40 @@
+{% load static %}
+<!doctype html>
+<html lang="kr">
+<head>
+<link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+</head>
+<body>
+
+<div id="wrap">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand">Search Image</a>
+            <form id="search-form" action="{% url 'posts:image-search' %}" class="form-inline ml-md-auto">
+                <input id="search-input"
+                       type="text"
+                       name="search_keyword"
+                       class="form-control"
+                       autocomplete="false"
+                       placeholder="검색">
+            </form>
+        </nav>
+    <div>
+        {% for url in urls %}
+        <div id="post" class="col col-lg-4 offset-lg-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <sapn>
+
+                    </sapn>
+                </div>
+                <div class="card-body">
+                    <img src="{{ url }}" alt="" class="card-img">
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+{% load static %}
+<!doctype html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <title>Hackathon</title>
+    <style>
+       .square {
+		}
+		.square:before {
+			content: '';
+			padding: 50% 0;
+			display: inline-block;
+		}
+		.square > .thumbnail {
+            display: block;
+            width: 100%;
+            background-size: cover;
+            background-position: center center;
+        }
+        .messages-container{
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            width: 400px;
+        }
+        #search-form{
+            position: relative;
+        }
+        ul.search-list{
+            position: absolute;
+            width: 100%;
+            height: 300px;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            border: 1px solid #999;
+            border-radius: 5px;
+            z-index: 999;
+
+            list-style-type: none;
+        }
+
+        ul.search-list > li {
+            display: block;
+            border-bottom: 1px solid #999;
+            padding: 8px;
+        }
+
+        ul.search-list > li{
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a href="" class="navbar-brand">Hackathon</a>
+            <form id="search-form" action="" class="form-inline ml-md-auto">
+                <input id="search-input"
+                       type="text"
+                       name="search_keyword"
+                       class="form-control"
+                       autocomplete="false"
+                       placeholder="검색">
+            </form>
+        </nav>
+    </div>
+</body>
+</html>
