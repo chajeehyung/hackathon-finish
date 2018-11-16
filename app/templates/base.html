@@ -8,68 +8,67 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
-    <title>Hackathon</title>
+    <title>Hackathon Image Crawler</title>
     <style>
-       .square {
-		}
-		.square:before {
-			content: '';
-			padding: 50% 0;
-			display: inline-block;
-		}
-		.square > .thumbnail {
-            display: block;
-            width: 100%;
-            background-size: cover;
-            background-position: center center;
-        }
-        .messages-container{
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            width: 400px;
-        }
-        #search-form{
-            position: relative;
-        }
-        ul.search-list{
-            position: absolute;
-            width: 100%;
-            height: 300px;
-            top: 100%;
-            left: 0;
-            background-color: white;
-            border: 1px solid #999;
-            border-radius: 5px;
-            z-index: 999;
-
-            list-style-type: none;
-        }
-
-        ul.search-list > li {
-            display: block;
-            border-bottom: 1px solid #999;
-            padding: 8px;
-        }
-
-        ul.search-list > li{
-            color: #666;
+input {
+    float : right;
+    width: 300px;
+    border: rgba(91,93,105,0.7) solid 1px;
+    padding: 1em 1.4em;
+    border-radius: 5px;
+}
+button.search-a {
+    margin-left: 10px;
+    float: right;
+    width: 80px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    padding: 1em;
+    background: #E36556;
+    color: #fff;
+    font-weight: 600;
+}
+        .save-b {
+            margin : 0 5px;
+            width: 80px;
+            padding: 0.9em;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
     <div id="wrap">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a href="" class="navbar-brand">Hackathon</a>
-            <form id="search-form" action="" class="form-inline ml-md-auto">
-                <input id="search-input"
-                       type="text"
-                       name="search_keyword"
-                       class="form-control"
-                       autocomplete="false"
-                       placeholder="검색">
-            </form>
+            <a href="" class="navbar-brand">PBYCrawler
+            </a>
+{%if request.GET.search_keyword %}
+
+              <form id="search-form" action="{% url 'posts:image-search' %}" class="form-inline ml-md-auto">
+                  <input id="search-input"
+                         type="text"
+                         name="search_keyword"
+                         autocomplete="false"
+                         placeholder="검색">
+                  <button class="search-a">검색</button>
+
+                  <!--<a href="#" class="">저장</a>-->
+              </form>
+              <form action="{% url 'posts:save-image' %}" method="POST">
+                  {% csrf_token %}
+                  {% for url in urls %}
+                  <input value="{{ url }}" type="hidden" name="urls" style="visibility: hidden">
+                  {% endfor %}
+                  <button class="btn btn-primary save-b" type="submit">저장</button>
+              </form>
+
+{% endif %}
         </nav>
     </div>
+
+        <div class="container-fluid mt-3">
+    			{% block content %}
+    			{% endblock %}
+        </div>
 </body>
 </html>

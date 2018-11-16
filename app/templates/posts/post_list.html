@@ -1,40 +1,74 @@
-{% load static %}
-<!doctype html>
-<html lang="kr">
-<head>
-<link rel="stylesheet" href="{% static 'css/normalize.css' %}">
-<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
-</head>
-<body>
+{% extends 'base.html' %}
 
-<div id="wrap">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand">Search Image</a>
-            <form id="search-form" action="{% url 'posts:image-search' %}" class="form-inline ml-md-auto">
-                <input id="search-input"
-                       type="text"
-                       name="search_keyword"
-                       class="form-control"
-                       autocomplete="false"
-                       placeholder="검색">
-            </form>
-        </nav>
-    <div>
+{% block content %}
+<style>
+input {
+float: left;
+width: 500px;
+border: rgba(91,93,105,0.7) solid 1px;
+padding: 1em 1.4em;
+border-radius: 5px;
+}
+button {
+float: left;
+margin-left : 10px;
+width: 80px;
+cursor: pointer;
+border: none;
+border-radius: 5px;
+padding: 1em;
+background: #E36556;
+color: #fff;
+font-weight: 600;
+}
+.center{
+  padding: 0;
+  width : 700px;
+  position: relative;
+  display : block;
+  margin : 200px auto;
+}
+img {
+    margin : 0 auto;
+}
+.flow-left {
+    margin : 10px;
+    float : left;
+}
+</style>
+
+{%if not request.GET.search_keyword %}
+              <div class="center clearfix">
+                <form id="search-form" action="{% url 'posts:image-search' %}" class="form-inline ml-md-auto">
+                    <input id="search-input"
+                           type="text"
+                           name="search_keyword"
+                           autocomplete="false"
+                           placeholder="검색"
+                           >
+                    <button>검색</button>
+                </form>
+              </div>
+
+{% endif %}
+
+{%if request.GET.search_keyword %}
+
         {% for url in urls %}
-        <div id="post" class="col col-lg-4 offset-lg-4 mb-4">
+        <form action="{% url 'posts:save-image' %}" method="POST">
+        {% csrf_token %}
+        <div class="flow-left row">
             <div class="card">
-                <div class="card-header">
-                    <sapn>
-
-                    </sapn>
-                </div>
                 <div class="card-body">
-                    <img src="{{ url }}" alt="" class="card-img">
+                    <img src="{{ url }}">
+                    <!--<input value="{{ url }}" type="hidden" name="url" style="visibility: hidden">-->
+                    <!--<button class="btn" type="submit">저장</button>-->
                 </div>
             </div>
         </div>
+        </form>
         {% endfor %}
-    </div>
-</div>
-</body>
-</html>
+{% endif%}
+
+
+{% endblock %}
